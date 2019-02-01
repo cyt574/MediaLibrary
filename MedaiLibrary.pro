@@ -22,7 +22,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
-CONFIG += c++11
 
 SOURCES += \
         main.cpp \
@@ -42,17 +41,21 @@ HEADERS += \
 FORMS += \
         mainwindow.ui
 
+TRANSLATIONS += \
+        zh_CN.ts
+
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-win32:CONFIG(release, debug|release): LIBS += -LD:/Workspace/curl-7.63.0/build/lib/release/ -llibcurl_imp
-else:win32:CONFIG(debug, debug|release): LIBS += -LD:/Workspace/curl-7.63.0/build/lib/debug/ -llibcurl_imp
-else:unix: LIBS += -LD:/Workspace/curl-7.63.0/build/lib/ -llibcurl_imp
-
-INCLUDEPATH += D:/Workspace/curl-7.63.0/build/lib/Release
-DEPENDPATH += D:/Workspace/curl-7.63.0/build/lib/Release
-
 RESOURCES += \
-    image.qrc
+    image.qrc \
+    QSS.qrc
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../curl-7.63.0/build/lib/release/ -llibcurl_imp
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../curl-7.63.0/build/lib/release/ -llibcurl_imp
+else:unix: LIBS += -L$$PWD/../curl-7.63.0/build/lib/ -llibcurl_imp
+
+INCLUDEPATH += $$PWD/../curl-7.63.0/include
+DEPENDPATH += $$PWD/../curl-7.63.0/include

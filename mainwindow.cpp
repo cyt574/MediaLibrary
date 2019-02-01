@@ -16,24 +16,29 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-//    mediaTree = new QTreeView();
-    mediaTree = ui->MediaTree;
 
-    QFileSystemModel mediaModel;
     mediaSetting = new MediaSetting(parent);
     qDebug() << "*****mediaSetting =" << mediaSetting->getCurrentPath() << "*****" << endl;
- //   mediaModel.setRootPath(mediaSetting->getCurrentPath());
-    mediaModel.setRootPath("");
-    mediaTree->setModel(&mediaModel);
-    mediaTree->setIndentation(40);
+
+    //Model Init
+    mediaModel = new QFileSystemModel();
+    mediaModel->setRootPath(QDir::currentPath());
+
+    //QTreeView Init
+    QTreeView* &mediaTree = ui->MediaTree;
+    mediaTree->setModel(mediaModel);
     mediaTree->setAnimated(false);
+    mediaTree->setColumnWidth(0,300);
+    mediaTree->setColumnWidth(3, 30);
     mediaTree->setSortingEnabled(true);
-    mediaTree->reset();
+    mediaTree->show();
+    this->load();
 }
+
 
 MainWindow::~MainWindow()
 {
-    delete mediaTree;
+    delete mediaModel;
     delete ui;
     delete mediaSetting;
 }
@@ -42,7 +47,7 @@ void MainWindow::load()
 {
     QDir dir;
     dir.setPath(mediaSetting->getCurrentPath());
-
+    ui->TitleLabel->setText(tr("Do You Like Van Youxi ?"));
 }
 
 

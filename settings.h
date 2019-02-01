@@ -27,7 +27,6 @@ public slots:
 private:
     QString currentPath;
     QSettings *settingPath;
-
 };
 
 #endif // SETTING_H

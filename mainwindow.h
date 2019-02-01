@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QFileSystemModel>
 #include "mediatree.h"
 #include "settings.h"
 namespace Ui {
@@ -21,8 +22,8 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    QTreeView *mediaTree;
     MediaSetting *mediaSetting;
+    QFileSystemModel *mediaModel;
     void load();
 };
 
